@@ -1,13 +1,22 @@
 <template>
-    <dev>
-      Hello Cinema
-    </dev>
+  <dev id="main">
+    <Header/>
+    Cinema
+    <TabBar/>
+  </dev>
 </template>
 
 <script>
-    export default {
-        name: "index"
+  import Header from '@/components/Header'
+  import TabBar from '@/components/TabBar'
+
+  export default {
+    name: "Cinema",
+    components: {
+      Header,
+      TabBar
     }
+  }
 </script>
 
 <style scoped>

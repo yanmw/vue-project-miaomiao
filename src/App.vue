@@ -1,11 +1,13 @@
 <template>
+  <keep-alive>
     <router-view/>
+  </keep-alive>
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+  export default {
+    name: 'App'
+  }
 </script>
 
 <style>
