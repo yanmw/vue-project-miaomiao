@@ -1,22 +1,26 @@
 <template>
   <div class="cinema_body">
-    <ul>
-      <li v-for="item in cinemas" :key="item.id">
-        <div>
-          <span>{{item.nm}}</span>
-          <span class="q"><span class="price">{{item.sellPrice}}</span> 元起</span>
-        </div>
-        <div class="address">
-          <span>{{item.addr}}</span>
-          <span>{{item.distance}}</span>
-        </div>
-        <div class="card">
-        <!--  <div v-if="item.tag.snack ===1">小吃</div>
-          <div v-show="item.tag.vipTag">折扣卡</div>-->
-          <div v-for="(num,key) in item.tag" v-if="num ===1" :key="key" :class="key | classFilter">{{key | formatCard}}</div>
-        </div>
-      </li>
-    </ul>
+    <Scroller>
+      <ul>
+        <li v-for="item in cinemas" :key="item.id">
+          <div>
+            <span>{{item.nm}}</span>
+            <span class="q"><span class="price">{{item.sellPrice}}</span> 元起</span>
+          </div>
+          <div class="address">
+            <span>{{item.addr}}</span>
+            <span>{{item.distance}}</span>
+          </div>
+          <div class="card">
+            <!--  <div v-if="item.tag.snack ===1">小吃</div>
+              <div v-show="item.tag.vipTag">折扣卡</div>-->
+            <div v-for="(num,key) in item.tag" v-if="num ===1" :key="key" :class="key | classFilter">{{key |
+              formatCard}}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </Scroller>
   </div>
 </template>
 
@@ -55,7 +59,7 @@
         }
         return ''
       },
-      classFilter(key){
+      classFilter(key) {
         let card = [
           {key: 'allowRefund', value: 'or'},
           {key: 'buyout', value: 'or'},

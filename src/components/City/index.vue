@@ -1,5 +1,7 @@
 <template>
   <div class="city_body">
+    <Scroller ref="city_list">
+      <div class="city_dev">
     <div class="city_list">
       <div class="city_hot">
         <h2>热门城市</h2>
@@ -16,6 +18,8 @@
         </div>
       </div>
     </div>
+      </div>
+    </Scroller>
     <div class="city_index">
       <ul>
         <li v-for="(city,index) in cityList" :key="city.index" @touchstart="handleToIndex(index)">{{city.index}}</li>
@@ -79,7 +83,7 @@
           } else {
             return 0;
           }
-        })
+        });
 
         function isExist(firstLetter) {
           for (let i = 0; i < cityList.length; i++) {
@@ -90,16 +94,14 @@
           return false;
         }
 
-        // console.log(cityList)
-
         return {
           cityList, topTen
         }
-        // console.log(topTen)
       },
       handleToIndex(index) {
         const h2 = this.$refs.city_sort.getElementsByTagName('h2')
-        this.$refs.city_sort.parentNode.scrollTop = h2[index].offsetTop;
+        // this.$refs.city_sort.parentNode.scrollTop = h2[index].offsetTop;
+        this.$refs.city_list.toScrollTop(-h2[index].offsetTop)
       }
     }
   }
@@ -188,6 +190,10 @@
     justify-content: center;
     text-align: center;
     border-left: 1px #e6e6e6 solid;
+  }
+
+  .city_body .city_dev {
+    width: 375px;
   }
 
 </style>

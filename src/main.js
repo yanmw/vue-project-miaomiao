@@ -11,6 +11,11 @@ Vue.prototype.axios = axios;
 Vue.filter('setWH',(url,arg) => {
   return url.replace('/w\.h/',arg)
 });
+
+import Scroller from '@/components/Scroller'
+
+Vue.component('Scroller',Scroller)
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
