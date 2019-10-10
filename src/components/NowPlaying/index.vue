@@ -1,6 +1,7 @@
 <template>
   <div class="movie_body" ref="movie_body">
-    <Scroller :handleToScroll="handleToScroll" :handleToTouchEnd="handleToTouchEnd">
+    <Loading v-if="isLoading"/>
+    <Scroller v-else :handleToScroll="handleToScroll" :handleToTouchEnd="handleToTouchEnd">
       <ul>
         <li v-show="this.pullDownMsg" class="pullDown">{{this.pullDownMsg}}</li>
         <li v-for="movie in movieList" :key="movie.id">
@@ -25,48 +26,62 @@
 
   export default {
     name: "NowPlaying",
-    mounted() {
-      this.axios.get('/api/movieOnInfoList?cityId=10').then((res) => {
+    activated() {
+
+      const cityId = this.$store.state.city.id;
+      if (cityId === this.prevCityId) {
+        return
+      }
+      this.isLoading = true
+
+      this.axios.get('/api/movieOnInfoList?cityId=' + cityId).then((res) => {
         // console.log(res);
         const msg = res.data.msg;
         if (msg === 'ok') {
           this.movieList = res.data.data.movieList
-/*          this.$nextTick(() => {//页面渲染完毕后触发
-            const scroll = new BetterScroll(this.$refs.movie_body, {
-              tap: true,
-              probeType: 1
-            });
-            //滑动触发
-            scroll.on('scroll', (pos) => {
-              // console.log("aaaaa")
-              if (pos.y > 30) {
-                this.pullDownMsg = '更新中...'
-              }
-            })
-            //滑动结束触发
-            scroll.on('touchEnd', (pos) => {
-              if (pos.y > 30) {
-                this.axios.get('/api/movieOnInfoList?cityId=11').then((res) => {
-                  const msg = res.data.msg;
-                  if (msg === 'ok') {
-                    this.pullDownMsg = '更新成功！';
-                    setTimeout(() => {
-                      this.movieList = res.data.data.movieList
-                      this.pullDownMsg = ''
-                    }, 500)
-                  }
-                })
-              }
-            })
+          this.isLoading = false
+          this.prevCityId = cityId
 
-          })*/
+
+          //注释掉的为 手机端的滑动效果
+          /*          this.$nextTick(() => {//页面渲染完毕后触发
+                      const scroll = new BetterScroll(this.$refs.movie_body, {
+                        tap: true,
+                        probeType: 1
+                      });
+                      //滑动触发
+                      scroll.on('scroll', (pos) => {
+                        // console.log("aaaaa")
+                        if (pos.y > 30) {
+                          this.pullDownMsg = '更新中...'
+                        }
+                      })
+                      //滑动结束触发
+                      scroll.on('touchEnd', (pos) => {
+                        if (pos.y > 30) {
+                          this.axios.get('/api/movieOnInfoList?cityId=11').then((res) => {
+                            const msg = res.data.msg;
+                            if (msg === 'ok') {
+                              this.pullDownMsg = '更新成功！';
+                              setTimeout(() => {
+                                this.movieList = res.data.data.movieList
+                                this.pullDownMsg = ''
+                              }, 500)
+                            }
+                          })
+                        }
+                      })
+
+                    })*/
         }
       });
     },
     data() {
       return {
         movieList: [],
-        pullDownMsg: ''
+        pullDownMsg: '',
+        isLoading: true,
+        prevCityId: -1
       }
     },
     methods: {

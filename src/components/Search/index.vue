@@ -46,16 +46,17 @@
       message(newValue) {
         // 取消上一次请求
         let that = this;
+        const cityId = this.$store.state.city.id;
         this.cancelRequest();
-
-        this.axios.get('/api/searchList?cityId=10&kw=' + newValue, {
+        this.axios.get('/api/searchList?cityId='+cityId+'&kw=' + newValue, {
           cancelToken: new this.axios.CancelToken(function executor(c) {
             that.source = c;
           })
         }).then((res) => {
-          console.log(movies)
-          console.log(msg)
+          const msg = res.data.msg;
+          const movies = res.data.data.movies;
           if (msg === 'ok' && movies) {
+            console.log("11111111111111111111")
             this.movies = res.data.data.movies.list
           }
         }).catch((err) => {
