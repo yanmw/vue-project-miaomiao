@@ -10,7 +10,8 @@
     <Loading v-if="isLoading"/>
     <div v-else id="content" class="contentDetail">
       <div class="detail_list">
-        <div class="detail_list_bg" :style="{'background-image': 'url('+detailMovie.img.replace(/w\.h/,'/148.208/')+')'}"></div>
+        <div class="detail_list_bg"
+             :style="{'background-image': 'url('+detailMovie.img.replace(/w\.h/,'/148.208/')+')'}"></div>
         <div class="detail_list_filter"></div>
         <div class="detail_list_content">
           <div class="detail_list_img">
@@ -126,7 +127,12 @@
     width: 100%;
     height: 100%;
     /*background: url(../../../static/images/movie_1.jpg) 0 40%;*/
+    /* 设置高斯模糊 */
     filter: blur(20px);
+    /*
+    background-size：100% 100%;---按容器比例撑满，图片变形；
+    background-size：cover;---把背景图片放大到适合元素容器的尺寸，图片比例不变，但是要注意，超出容器的部分可能会裁掉。
+    */
     background-size: cover;
     position: absolute;
     left: 0;
