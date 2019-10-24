@@ -119,8 +119,9 @@
   #content .detail_list {
     height: 200px;
     width: 100%;
-    position: relative;
-    overflow: hidden;
+    position: relative;/*相对位置*/
+    overflow: hidden;/*该元素的内容若超出了给定的宽度和高度属性，那么超出的部分将会被隐藏，不占位。*/
+    text-overflow: ellipsis;	/*当对象内文本溢出时显示省略标记（...）*/
   }
 
   .detail_list .detail_list_bg {
@@ -134,7 +135,7 @@
     background-size：cover;---把背景图片放大到适合元素容器的尺寸，图片比例不变，但是要注意，超出容器的部分可能会裁掉。
     */
     background-size: cover;
-    position: absolute;
+    position: absolute;/*绝对位置*/
     left: 0;
     top: 0;
   }
@@ -185,7 +186,6 @@
   }
 
   .detail_list .detail_list_info p {
-    color: white;
     line-height: 20px;
     font-size: 14px;
     color: #ccc;
